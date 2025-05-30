@@ -4,6 +4,7 @@
 //#include "hook.h"
 #include "fiber.h"
 #include "thread.h"
+#include "fiber_pool.h"
 
 #include <mutex>
 #include <vector>
@@ -141,6 +142,8 @@ private:
 	int m_rootThread = -1;
 	// 是否正在关闭
 	bool m_stopping = false;	
+
+	FiberPool& m_fiberPool = FiberPool::getInstance();
 };
 
 }

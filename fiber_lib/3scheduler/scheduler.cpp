@@ -134,16 +134,19 @@ void Scheduler::run()
 				{
 					task.fiber->resume();	
 				}
+				m_fiberPool.release(task.fiber);
 			}
 			m_activeThreadCount--;
 			task.reset();
 		}
 		else if(task.cb)
 		{
-			std::shared_ptr<Fiber> cb_fiber = std::make_shared<Fiber>(task.cb);
+			std::shared_ptr<Fiber> cb_fiber = m_fiberPool.acquire();
+			cb_fiber->reset(task.cb);
 			{
 				std::lock_guard<std::mutex> lock(cb_fiber->m_mutex);
 				cb_fiber->resume();			
+				m_fiberPool.release(cb_fiber);
 			}
 			m_activeThreadCount--;
 			task.reset();	

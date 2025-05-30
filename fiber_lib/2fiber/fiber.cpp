@@ -1,6 +1,6 @@
 #include "fiber.h"
 
-static bool debug = false;
+static bool debug = true;
 
 namespace sylar {
 

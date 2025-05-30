@@ -41,6 +41,7 @@ public:
 
 	uint64_t getId() const {return m_id;}
 	State getState() const {return m_state;}
+	void setState(State state) {m_state = state;}
 
 public:
 	// 设置当前运行的协程
